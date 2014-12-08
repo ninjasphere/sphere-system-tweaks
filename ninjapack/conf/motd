@@ -1,0 +1,62 @@
+#!/bin/sh
+
+if [ -e /opt/ninjablocks/package.json ]; then
+	node_version=$(jq -r '.version' /opt/ninjablocks/package.json)
+else
+	node_version=unknown
+fi
+if [ -e /data/etc/opt/ninja/serial.conf ]; then
+	serial_number=$(cat /data/etc/opt/ninja/serial.conf)
+elif [ -e /opt/ninjablocks/serial.js ]; then
+	serial_number=$(node /opt/ninjablocks/bin/sphere-serial.js 2>/dev/null || echo unknown)
+else
+	serial_number=unknown
+fi
+if [ -e /etc/ninja-hardware ]; then
+	. /etc/ninja-hardware
+else
+	NINJA_BOARD_TYPE=unknown
+fi
+. /etc/ninja-release
+
+image_time=$(date --date="@${NINJA_OS_BUILD_TIMESTAMP}" "+%Y-%m-%d %H:%M %Z")
+
+config_snapshot=/opt/ninjablocks/client/config-snapshot.json
+if [ -f $config_snapshot ]; then
+        node_env=$(jq -r '.env' $config_snapshot)
+        api_host=$(jq -r '.apiHost' $config_snapshot)
+        api_port=$(jq -r '.apiPort' $config_snapshot)
+        cloud_host=$(jq -r '.cloudHost' $config_snapshot)
+        cloud_port=$(jq -r '.cloudPort' $config_snapshot)
+        api_info=${api_host}:${api_port}
+        cloud_info=${cloud_host}:${cloud_port}
+else
+        node_env="-"
+        api_info="-"
+        cloud_info="-"
+fi
+
+cat <<EOF
+           MMMMMMMMMMMMMMMMMM
+         MMMMMMMMMMMMMMMMMMMMMM
+        MM                    MM         Client version: ${node_version}
+       MM    MMMM      MMMM    MM        Environment: ${node_env}
+       MM    MMMM      MMMM    MM        API: ${api_info}
+        MM                    MM         MQTT: ${cloud_info}
+         MMMMMMMMMMMMMMMMMMMMMM
+         MMMMMMMMMMMMMMMMMMMMMM          Hardware type: ${NINJA_BOARD_TYPE}
+             MMMMMMMMMMMMMM              Serial: ${serial_number}
+             MMMMMMMMMMMMMM
+         MMMMMMMMMMMMMMMMMMMMMM          ${NINJA_OS_BUILD_NAME}
+         MMMMMMMMMMMMMMMMMMMMMM          Release tag: ${NINJA_OS_TAG}
+         MMMMMMMMMMMMMMMMMMMMMM          Build target: ${NINJA_OS_BUILD_TARGET}
+              MMMMMMMMMMMM               Image time: ${image_time}
+              MMMMMMMMMMMM
+              MMMMMMMMMMMM
+             MMMMMMMMMMMMMM
+             MMMMM    MMMMM
+            MMMMM      MMMMM
+            MMMMM      MMMMM
+
+
+EOF

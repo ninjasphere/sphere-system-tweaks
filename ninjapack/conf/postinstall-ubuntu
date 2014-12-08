@@ -1,0 +1,11 @@
+# disable mosquitto persistent database file to prevent corruption
+test -f /etc/mosquitto/mosquitto.conf && sed -i 's/persistence true/persistence false/' /etc/mosquitto/mosquitto.conf
+
+# dont run avahi in chroot jail
+test -f /etc/init/avahi-daemon.conf && sed -i 's/opts="-D"/opts="-D --no-chroot"/' /etc/init/avahi-daemon.conf
+
+# configure redis
+chown redis:redis /etc/redis/redis.conf
+redis-cli CONFIG SET appendonly yes || true
+redis-cli CONFIG REWRITE || true
+service redis-server restart || true

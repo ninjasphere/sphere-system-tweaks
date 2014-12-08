@@ -1,0 +1,12 @@
+/var/log/ninjasphere.log {
+    size 5M
+    copytruncate
+    rotate 2
+    missingok
+}
+
+/var/log/ninja.log {
+    size 5M
+    rotate 2
+    missingok
+}

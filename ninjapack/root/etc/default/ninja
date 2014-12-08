@@ -1,0 +1,4 @@
+#Define variables in this file to overwrite system environment, use at your own risk
+#SITEID="my-site-id"
+#NODEID="my-node-id"
+#TOKEN="mytoken"
