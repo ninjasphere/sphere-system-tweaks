@@ -14,8 +14,8 @@ service redis-server restart || true
 if ! grep -q 'C A U T I O N' /etc/issue; then
     echo "Updating issue"
     sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
-    sed -i '1s/^/| may cause hardware, software or security issues and will void your warranty. |\n/' /etc/issue
-    sed -i '1s/^/| Modifications you make to the system are not supported by Ninja Blocks,      |\n/' /etc/issue
+    sed -i '1s/^/| cause hardware, software or security issues and "may" void your warranty.    |\n/' /etc/issue
+    sed -i '1s/^/| Modifications you make to the system are not supported by Ninja Blocks, may  |\n/' /etc/issue
     sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
     sed -i '1s/^/|  + + +                          C A U T I O N                         + + +  |\n/' /etc/issue
     sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
