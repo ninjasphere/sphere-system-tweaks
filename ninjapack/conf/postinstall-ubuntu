@@ -9,3 +9,14 @@ chown redis:redis /etc/redis/redis.conf
 redis-cli CONFIG SET appendonly yes || true
 redis-cli CONFIG REWRITE || true
 service redis-server restart || true
+
+# modify the issue header
+if ! grep -q 'C A U T I O N' /etc/issue; then
+    echo "Updating issue"
+    sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
+    sed -i '1s/^/| may cause hardware, software or security issues and will void your warranty. |\n/' /etc/issue
+    sed -i '1s/^/| Modifications you make to the system are not supported by Ninja Blocks,      |\n/' /etc/issue
+    sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
+    sed -i '1s/^/|  + + +                          C A U T I O N                         + + +  |\n/' /etc/issue
+    sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
+fi
