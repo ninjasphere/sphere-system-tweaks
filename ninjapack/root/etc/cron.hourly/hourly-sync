@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# recovery of f2fs in 3.12 following a hard power off doesn't capture any updates that aren't synced, so we sync every hour
+sync
