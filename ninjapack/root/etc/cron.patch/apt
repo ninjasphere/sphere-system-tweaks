@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
-test -x /usr/local/bin/fix-f2fs.sh && /usr/local/bin/fix-f2fs.sh fix all
+FIXUPS=/usr/local/bin/f2fs-fixups.sh
+test -x "$FIXUPS" && "$FIXUPS" fix all
 test -x /etc/cron.orig/apt && /etc/cron.orig/apt "$@"
 sync
