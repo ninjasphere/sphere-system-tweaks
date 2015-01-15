@@ -20,3 +20,6 @@ if ! grep -q 'C A U T I O N' /etc/issue; then
     sed -i '1s/^/|  + + +                          C A U T I O N                         + + +  |\n/' /etc/issue
     sed -i '1s/^/+------------------------------------------------------------------------------+\n/' /etc/issue
 fi
+
+# install the f2fs fixups
+/usr/local/bin/f2fs-fixups.sh fix all
