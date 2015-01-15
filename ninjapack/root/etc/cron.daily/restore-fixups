@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# restore the fixups in case they get removed by an update process.
+
+/usr/local/bin/f2fs-fixups.sh fix daily-apt
