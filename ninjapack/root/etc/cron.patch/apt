@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+test -x /usr/local/bin/fix-f2fs.sh && /usr/local/bin/fix-f2fs.sh fix all
+test -x /etc/cron.orig/apt && /etc/cron.orig/apt "$@"
+sync
