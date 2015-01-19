@@ -13,7 +13,10 @@
 
 case "$1" in
 start)
-	initctl emit --no-wait redis-ready
+	/sbin/start redis-dependencies
+;;
+stop)
+	/sbin/stop redis-dependencies
 ;;
 *)
 	echo "usage: redis-dependencies start"
