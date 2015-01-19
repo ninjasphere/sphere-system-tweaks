@@ -1,0 +1,23 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:             redis-dependencies
+# Required-Start:       $redis-server
+# Required-Stop:        
+# Should-Start:         
+# Should-Stop:          
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Does not start until redis-server has started.
+# Description:          Does not start until redit-server has started.
+### END INIT INFO
+
+case "$1" in
+start)
+	initctl emit --no-wait redis-ready
+;;
+*)
+	echo "usage: redis-dependencies start"
+	exit 1
+;;
+esac
+
