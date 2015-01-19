@@ -23,3 +23,6 @@ fi
 
 # install the f2fs fixups
 /usr/local/bin/f2fs-fixups.sh fix all
+
+# reset redis-dependencies to the default RC configuration
+update-rc.d redis-dependencies default
