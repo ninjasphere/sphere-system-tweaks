@@ -13,13 +13,13 @@
 
 case "$1" in
 start)
-	/sbin/start redis-dependencies
+	initctl emit --no-wait redis-ready
 ;;
 stop)
-	/sbin/stop redis-dependencies
+	:
 ;;
 *)
-	echo "usage: redis-dependencies start"
+	echo "usage: redis-dependencies start stop"
 	exit 1
 ;;
 esac
