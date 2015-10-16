@@ -1,6 +1,7 @@
 Unattended-Upgrade::Allowed-Origins {
     "${distro_id}:${distro_codename}-security";
     "Ninja Blocks\, Inc:stable";
+    "Ninja Blocks\, Inc:staging";
     "Ninja Blocks\, Inc:unstable";
     "Ninja Blocks\, Inc:testing";
 };
